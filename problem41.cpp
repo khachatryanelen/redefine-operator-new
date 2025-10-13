@@ -3,18 +3,18 @@
 #include <ctime>
 #include <string>
 
-void* myMalloc(int size,std::string& str){
-    void* p=malloc(size);
+void myMalloc(int size,std::string& str,void** ptr){
+    *ptr=malloc(size);
     std::cout<<str<<std::endl;
-    return p;
 }
 void* operator new[](size_t size,std::string& str){
-    void* p=myMalloc(size,str);
+    void * ptr;
+    myMalloc(size,str,&ptr);
     std::cout<<"Allocated "<< size <<" byte(s)"<<std::endl;
-    if(p==nullptr) {
+    if(ptr==nullptr) {
         std::cout<<"Not enough place"<<std::endl;
     }
-    return p;
+    return ptr;
 }
 void operator delete[](void* ptr){
     if(ptr==nullptr){
