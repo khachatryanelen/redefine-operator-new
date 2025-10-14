@@ -1,15 +1,14 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <string>
 
-void myMalloc(int size,std::string& str,void** ptr){
+void myMalloc(int size,void** ptr){
     *ptr=malloc(size);
-    std::cout<<str<<std::endl;
+    std::cout<<"Hahahah you are using my malloc :) "<<std::endl;
 }
-void* operator new[](size_t size,std::string& str){
-    void * ptr;
-    myMalloc(size,str,&ptr);
+void* operator new[](size_t size){
+    void* ptr;
+    myMalloc(size,&ptr);
     std::cout<<"Allocated "<< size <<" byte(s)"<<std::endl;
     if(ptr==nullptr) {
         std::cout<<"Not enough place"<<std::endl;
@@ -35,10 +34,9 @@ void printArray(int* arr,int size){
     std::cout << std::endl;
 }
 int main(int argc,const char* argv[]){
-    std::string str="Hahaha you are using my malloc:) ";
     srand(time(0));
     int size=8;
-    int* arr=new(str) int[size];
+    int* arr=new int[size];
     initArray(arr,size);
     printArray(arr,size);
     delete[] arr;

@@ -1,14 +1,13 @@
 #include <iostream>
 #include <cstdlib>
-#include <string>
 
-void myMalloc(int size,std::string& str,void** ptr){
+void myMalloc(int size,void** ptr){
     *ptr=malloc(size);
-    std::cout<<str<<std::endl;
+    std::cout<<"Hahahah you are using my malloc :) "<<std::endl;
 }
-void* operator new[](size_t size,std::string& str){
+void* operator new(size_t size){
     void * ptr;
-    myMalloc(size,str,&ptr);
+    myMalloc(size,&ptr);
     std::cout<<"Allocated "<< size <<" byte(s)"<<std::endl;
     if(ptr==nullptr) {
         std::cout<<"Not enough place"<<std::endl;
@@ -23,8 +22,7 @@ void operator delete(void* ptr){
     std::cout <<"Deleted"<< std::endl;
 }
 int main(int argc,const char* argv[]){
-    std::string str="Hahaha you are using my malloc:) ";
-    char* number=new(str) char;
+    char* number=new char;
     *number='a';
     std::cout<< *number<<std::endl;
     delete number;
